@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+    <script src="js/inflate.min.js"></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/2.0.8/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+
+    <title>AMANE AR</title>
+    <script>
+        AFRAME.registerComponent('registerevents', {
+            init: function () {
+                var marker = this.el;
+
+                // マーカーを検出したイベント
+                marker.addEventListener('markerFound', function () {
+                    console.log('Hi');
+                }); 
+
+                // マーカーを見失ったイベント
+                marker.addEventListener('markerLost', function () {
+
+                });
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <a-scene embedded arjs="debugUIEnabled:false;">
+      <a-assets>
+        <a-asset-item id="rui-obj" src="models/rui/tinker.obj">
+        <a-asset-item id="rui-mtl" src="models/rui/obj.mtl">
+      </a-assets>
+        <!-- マーカーを登録（プリセットされている「hiro」マーカー） -->
+        <a-marker preset="hiro" id="amane" registerevents>
+          <a-obj-model id="sample" src="#rui-obj" mtl="#rui-mtl" position="0 0 0"
+            scale="0.01 0.01 0.01" rotation="-80 180 0"
+            animation="property: object3D.position.y;
+            to: 2.0;
+            dir: alternate;
+            dur: 1000;
+            loop: true"></a-obj-model>
+          <!-- <a-box position="0 0.5 0" wireframe="true"></a-box> -->
+
+          
+
+        </a-marker>
+
+        <!-- AR用のカメラを置く -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+
+</body>
+
+</html>
