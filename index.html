@@ -11,6 +11,10 @@
 
     <title>AMANE AR</title>
     <script>
+      let audio = new Howl({
+        src: ['./Betterdays.mp3']
+      });
+
         AFRAME.registerComponent('registerevents', {
             init: function () {
                 var marker = this.el;
@@ -18,11 +22,15 @@
                 // マーカーを検出したイベント
                 marker.addEventListener('markerFound', function () {
                     console.log('Hi');
+                    audio.play();
                 }); 
 
                 // マーカーを見失ったイベント
                 marker.addEventListener('markerLost', function () {
-
+                var markerId = marker.id;
+                console.log('markerLost', markerId);
+                audio.pause();
+                audio.currentTime = 0;
                 });
             }
         });
